@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+    <title>Parkinson Disease</title>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+     <style>
+       
+		#intro {
+      background-image: url("../static/xray.jpg");
+      height: 100vh;
+	  background-repeat: no-repeat;
+	  background-size: cover;
+      overflow: hidden;
+    }
+	.message-container {
+    position: absolute;
+    bottom: -13px; /* Adjust as needed */
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    width: 100%;
+    color: white; /* Changed from black */
+    font-weight: bold;
+    font-size: 20px;
+   
+}
+
+		
+	</style>
+	</head>
+	<script language="javascript">
+	function check(form)
+	{
+		if(form.path.value == "")
+		{
+			alert("Error Enter Dataset Path")
+			return false;
+		}
+		else
+		{
+				return true;
+		}
+	
+	}
+	
+	</script>
+	
+
+<body class="">
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+          <a class="navbar-brand " style="color:beige"  href="#">Parkinson's Disease Detection</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse justify-content-end" id="navbarNav" >
+            <ul class="navbar-nav">
+
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/Main">Home</a>
+              </li>
+              
+
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/Training1">Preprocessing</a>
+              </li>
+
+			  <li class="nav-item">
+                <a class="nav-link active" href="Checkup">Checkup</a>
+              </li>
+			  
+            </ul>
+          </div>
+        </div>
+      </nav>
+	<div id="intro" class="bg-image shadow-2-strong">
+		<div class="mask" style="background-color: rgba(0, 0, 0, 0.3);">
+			<form action="/parkinson_prediction" method="POST" style="padding: 100px 250px;">
+				<!-- Input fields for user data -->
+				<div class="row g-2">
+					<div class="col-md">
+						<div class="form-floating mb-2">
+							<input type="text" class="form-control" id="mdvp_fo" name="mdvp_fo" placeholder="MDVP:Fo(Hz)">
+							<label for="mdvp_fo">MDVP:Fo(Hz)</label>
+						  </div>
+					</div>
+					<div class="col-md">
+						<div class="form-floating mb-2">
+							<input type="text" class="form-control" id="mdvp_fhi" name="mdvp_fhi" placeholder="MDVP:Fhi(Hz)">
+							<label for="mdvp_fhi">MDVP:Fhi(Hz)</label>
+						  </div>
+					</div>
+					<div class="col-md">
+						<div class="form-floating mb-2">
+							<input type="text" class="form-control" id="mdvp_flo" name="mdvp_flo" placeholder="MDVP:Flo(Hz)">
+							<label for="mdvp_flo">MDVP:Flo(Hz)</label>
+						  </div>
+					</div>
+					<div class="col-md">
+						<div class="form-floating mb-2">
+							<input type="text" class="form-control" id="jitter_percent" name="mdvp_jitter_percent" placeholder="MDVP:Jitter(%)">
+							<label for="jitter_percent">MDVP:Jitter(%)</label>
+						  </div>
+					</div>
+				  </div>
+				
+		
+				<div class="row g-2">
+					<div class="col-md">
+						<div class="form-floating mb-2">
+							<input type="text" class="form-control" id="jitter_abs" name="mdvp_jitter_abs" placeholder="MDVP:Jitter(Abs)">
+							<label for="jitter_abs">MDVP:Jitter(Abs)</label>
+						  </div>
+					</div>
+					<div class="col-md">
+						<div class="form-floating mb-2">
+							<input type="text" class="form-control" id="rap" name="mdvp_rap" placeholder="MDVP:RAP">
+							<label for="rap">MDVP:RAP</label>
+						  </div>
+					</div>
+					<div class="col-md">
+						<div class="form-floating mb-2">
+							<input type="text" class="form-control" id="ppq" name="mdvp_ppq" placeholder="MDVP:PPQ">
+							<label for="ppq">MDVP:PPQ</label>
+						  </div>
+					</div>
+					<div class="col-md">
+						<div class="form-floating mb-2">
+							<input type="text" class="form-control" id="jitter_ddp" name="jitter_ddp" placeholder="Jitter:DDP">
+							<label for="jitter_ddp">Jitter:DDP</label>
+						  </div>
+					</div>
+				  </div>
+				
+				<div class="row g-2">
+					<div class="col-md">
+						<div class="form-floating mb-2">
+							<input type="text" class="form-control" id="shimmer" name="mdvp_shimmer" placeholder="MDVP:Shimmer">
+							<label for="shimmer">MDVP:Shimmer</label>
+						  </div>
+					</div>
+					<div class="col-md">
+						<div class="form-floating mb-2">
+							<input type="text" class="form-control" id="shimmer_db" name="mdvp_shimmer_db" placeholder="MDVP:Shimmer(dB)">
+							<label for="shimmer_db">MDVP:Shimmer(dB)</label>
+						  </div>
+					</div>
+					<div class="col-md">
+						<div class="form-floating mb-2">
+							<input type="text" class="form-control" id="apq3" name="shimmer_apq3" placeholder="Shimmer:APQ3">
+							<label for="apq3">Shimmer:APQ3</label>
+						  </div>
+					</div>
+					<div class="col-md">
+						<div class="form-floating mb-2">
+							<input type="text" class="form-control" id="apq5" name="shimmer_apq5" placeholder="Shimmer:APQ5">
+							<label for="apq5">Shimmer:APQ5</label>
+						  </div>
+					</div>
+				  </div>
+				
+		
+				<div class="row g-2">
+					<div class="col-md">
+						<div class="form-floating mb-2">
+							<input type="text" class="form-control" id="apq" name="mdvp_apq" placeholder="MDVP:APQ">
+							<label for="apq">MDVP:APQ</label>
+						  </div>
+					</div>
+					<div class="col-md">
+						<div class="form-floating mb-2">
+							<input type="text" class="form-control" id="dda" name="shimmer_dda" placeholder="Shimmer:DDA">
+							<label for="dda">Shimmer:DDA</label>
+						  </div>
+					</div>
+					<div class="col-md">
+						<div class="form-floating mb-2">
+							<input type="text" class="form-control" id="nhr" name="nhr" placeholder="NHR">
+							<label for="nhr">NHR</label>
+						  </div>
+					</div>
+					<div class="col-md">
+						<div class="form-floating mb-2">
+							<input type="text" class="form-control" id="hnr" name="hnr" placeholder="HNR">
+							<label for="hnr">HNR</label>
+						  </div>
+					</div>
+				  </div>
+				
+		
+				<div class="row g-2">
+					<div class="col-md">
+						<div class="form-floating mb-2">
+							<input type="text" class="form-control" id="rpde" name="rpde" placeholder="RPDE">
+							<label for="rpde">RPDE</label>
+						  </div>
+					</div>
+					<div class="col-md">
+						<div class="form-floating mb-2">
+							<input type="text" class="form-control" id="dfa" name="dfa" placeholder="DFA">
+							<label for="dfa">DFA</label>
+						  </div>
+					</div>
+					<div class="col-md">
+						<div class="form-floating mb-2">
+							<input type="text" class="form-control" id="spread1" name="spread1" placeholder="SPREAD1">
+							<label for="spread1">SPREAD1</label>
+						  </div>
+					</div>
+					<div class="col-md">
+						<div class="form-floating mb-2">
+							<input type="text" class="form-control" id="spread2" name="spread2" placeholder="SPREAD2">
+							<label for="spread2">SPREAD2</label>
+						  </div>
+					</div>
+				  </div>
+				
+		
+				<div class="row g-2">
+					<div class="col-md">
+						<div class="form-floating mb-2">
+							<input type="text" class="form-control" id="d2" name="d2" placeholder="D2">
+							<label for="d2">D2</label>
+						  </div>
+					</div>
+					<div class="col-md">
+						<div class="form-floating mb-2">
+							<input type="text" class="form-control" id="ppe" name="ppe" placeholder="PPE" >
+							<label for="ppe">PPE</label>
+						  </div>
+					</div>
+				  </div>
+		
+				
+                  <div class="text-center pt-5">
+					<a href="/parkinson_prediction" class="btn btn-outline-info border-3 btn-sm">
+						<input type="submit" onclick="return check(this.form)" value="SUBMIT" style="background-color: transparent; border: none; cursor: pointer; color: white; text-transform: uppercase; font-weight: bold;">
+					</a>
+					<!-- <a href="/Main" class="btn btn-outline-info border-3 btn-sm" style="color: white; font-weight: bold; margin-left: 10px;">HOME</a> -->
+				</div>
+				
+                
+                
+			</form>
+			<div class="message-container">
+                {% if parkinsons_diagnosis %}
+                    <p>{{ parkinsons_diagnosis }}</p>
+                {% endif %}
+            </div>
+			<div class="message-container">
+				{% if error_message %}
+				<p>{{ error_message }}</p>
+				{% endif %}
+			</div>
+			
+		</div>
+		</div>
+</body>
+</html>
